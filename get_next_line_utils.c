@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pecastro <pecastro@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/14 18:50:48 by pecastro          #+#    #+#             */
+/*   Updated: 2025/12/14 19:39:25 by pecastro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -7,12 +19,12 @@ size_t	ft_strlen(const char *s)
 	if (!s)
 		return (0);
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i])
 		i ++;
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char			*ptr;
 	unsigned int	i;
@@ -20,8 +32,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	ptr = malloc(sizeof(*ptr) * ((ft_strlen((const char *)s1))
-				+ ft_strlen((const char *)s2) + 1));
+	ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!ptr)
 		return (NULL);
 	i = 0;
@@ -50,7 +61,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if ((nmemb * size) > 2147483647)
 		return (NULL);
 	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
+	if (!ptr)
 		return (NULL);
 	i = 0;
 	while (i < (nmemb * size))
@@ -66,8 +77,7 @@ char	*ft_substr_new(const char *s, unsigned int start, size_t len)
 	char			*ptr;
 	unsigned int	i;
 
-	i = 0;
-	if (s == NULL)
+	if (!s)
 		return (NULL);
 	if (start >= ft_strlen(s))
 	{
@@ -79,8 +89,9 @@ char	*ft_substr_new(const char *s, unsigned int start, size_t len)
 	if (len >= (ft_strlen(s) - start))
 		len = ft_strlen(s) - start;
 	ptr = malloc(sizeof(char) * (len + 1));
-	if (ptr == NULL)
+	if (!ptr)
 		return (NULL);
+	i = 0;
 	while (s[start + i] && (i < len))
 	{
 		ptr[i] = s[start + i];
